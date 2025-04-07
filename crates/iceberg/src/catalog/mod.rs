@@ -255,16 +255,15 @@ pub struct TableCreation {
 
 /// TableCommit represents the commit of a table in the catalog.
 #[derive(Debug, TypedBuilder)]
-#[builder(build_method(vis = "pub(crate)"))]
 pub struct TableCommit {
     /// The table ident.
-    ident: TableIdent,
+    pub ident: TableIdent,
     /// The requirements of the table.
     ///
     /// Commit will fail if the requirements are not met.
-    requirements: Vec<TableRequirement>,
+    pub requirements: Vec<TableRequirement>,
     /// The updates of the table.
-    updates: Vec<TableUpdate>,
+    pub updates: Vec<TableUpdate>,
 }
 
 impl TableCommit {
