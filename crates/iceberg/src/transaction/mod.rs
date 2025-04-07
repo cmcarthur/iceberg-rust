@@ -21,6 +21,7 @@
 /// that allows users to apply a transaction action to a `Transaction`.
 mod action;
 pub use action::*;
+mod add_field;
 mod append;
 mod snapshot;
 mod sort_order;
@@ -33,6 +34,7 @@ use std::sync::Arc;
 use crate::error::Result;
 use crate::table::Table;
 use crate::transaction::action::BoxedTransactionAction;
+use crate::transaction::add_field::AddFieldsAction;
 use crate::transaction::append::FastAppendAction;
 use crate::transaction::sort_order::ReplaceSortOrderAction;
 use crate::transaction::update_location::UpdateLocationAction;
@@ -100,6 +102,11 @@ impl Transaction {
     /// Creates a fast append action.
     pub fn fast_append(&self) -> FastAppendAction {
         FastAppendAction::new()
+    }
+
+    /// Creates an add fields action.
+    pub fn add_fields(self, fields: Vec<NestedFieldRef>) -> AddFieldsAction<'a> {
+        AddFieldsAction::new(self, fields)
     }
 
     /// Creates replace sort order action.
