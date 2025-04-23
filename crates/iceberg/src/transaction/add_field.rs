@@ -44,9 +44,6 @@ impl<'a> AddFieldsAction<'a> {
 
         let updates = vec![
             TableUpdate::AddSchema { schema },
-            TableUpdate::SetCurrentSchema {
-                schema_id: schema_id + 1,
-            },
         ];
         let requirements = vec![TableRequirement::CurrentSchemaIdMatch {
             current_schema_id: self.tx.table.metadata().current_schema().schema_id(),
