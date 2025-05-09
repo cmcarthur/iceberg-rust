@@ -243,6 +243,12 @@ impl RestCatalog {
         }
     }
 
+    /// Invalidate the current token. The next request will re-authenticate.
+    pub async fn invalidate_token(&self) -> Result<()> {
+        self.context().await?.client.invalidate_token().await;
+        Ok(())
+    }
+
     /// Gets the [`RestContext`] from the catalog.
     async fn context(&self) -> Result<&RestContext> {
         self.ctx
