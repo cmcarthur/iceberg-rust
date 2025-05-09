@@ -106,6 +106,11 @@ impl HttpClient {
         self.token.lock().await.clone()
     }
 
+    /// Invalidate the current token. The next request will re-authenticate.
+    pub async fn invalidate_token(&self) {
+        self.token.lock().expect("lock poison").take();
+    }
+
     /// Authenticate the request by filling token.
     ///
     /// - If neither token nor credential is provided, this method will do nothing.
